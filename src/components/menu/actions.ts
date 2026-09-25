@@ -1,0 +1,76 @@
+import { computed } from 'vue'
+import type { CandidateAction, MatchState } from '@/stores/battle'
+
+export const operationCommands = {
+  rollDice: ['ThrowDiceC2S', 'MoveAgainC2S'] as string[],
+  remoteDice: 'ThrowDiceResultC2S',
+  useCard: 'UseEffectCardC2S',
+  quickCard: 'UseQuickCardC2S',
+  discardCard: 'AbandonCardC2S',
+  battleUseCard: 'BattleUseCardC2S',
+  battleRollDice: 'BattleThrowDiceC2S',
+  defense: 'BattleChoiceC2S',
+  askBattle: 'AskBattleC2S',
+  stopOrContinue: 'StopOrContinueC2S',
+  chip: 'SelectRelicC2S',
+  pursue: 'PursuitC2S',
+  move: ['MoveC2S', 'ChoiceDirectionC2S'] as string[],
+  cardShop: 'PVEShopBuyC2S',
+  multiShop: 'ShopBuyC2S',
+  vendor: 'VendorBuyCardC2S',
+  chipShop: 'BuyRelicC2S',
+  assault: 'MonsterPursuitC2S',
+  events: 'TriggerEventC2S',
+  selectEvent: 'SelectEventC2S',
+  eventRollDice: 'EventThrowDiceC2S',
+  destiny: 'TriggerDestinyC2S',
+  hospital: 'TriggerHospitalC2S',
+  divination: 'TriggerDivinationC2S',
+  lottery: 'LotteryChoiceC2S',
+  rollGold: 'RollGoldC2S',
+  gamble: 'StartGambleC2S',
+  gambleRollDice: 'GambleThrowDicC2S',
+  bombDice: 'BombThrowDiceC2S',
+  nodeTarget: 'LandChoiceTargetC2S',
+  selectRewardCard: 'SelectRewardCardC2S',
+}
+
+export function getOperationActions(match: MatchState) {
+  const get = (name: string | string[]): CandidateAction | undefined => match.getTodo(name)
+
+  return {
+    rollDice: computed(() => get(operationCommands.rollDice) ?? get(operationCommands.useCard)),
+    remoteDice: computed(() => get(operationCommands.remoteDice)),
+    useCard: computed(() => get(operationCommands.useCard)),
+    quickCard: computed(() => get(operationCommands.quickCard)),
+    discardCard: computed(() => get(operationCommands.discardCard)),
+    battleUseCard: computed(() => get(operationCommands.battleUseCard)),
+    battleRollDice: computed(() => get(operationCommands.battleRollDice)),
+    defense: computed(() => get(operationCommands.defense)),
+    askBattle: computed(() => get(operationCommands.askBattle)),
+    stopOrContinue: computed(() => get(operationCommands.stopOrContinue)),
+    chip: computed(() => get(operationCommands.chip)),
+    pursue: computed(() => get(operationCommands.pursue)),
+    move: computed(() => get(operationCommands.move)),
+    cardShop: computed(() => get(operationCommands.cardShop)),
+    multiShop: computed(() => get(operationCommands.multiShop)),
+    vendor: computed(() => get(operationCommands.vendor)),
+    chipShop: computed(() => get(operationCommands.chipShop)),
+    assault: computed(() => get(operationCommands.assault)),
+    events: computed(() => get(operationCommands.events)),
+    selectEvent: computed(() => get(operationCommands.selectEvent)),
+    eventRollDice: computed(() => get(operationCommands.eventRollDice)),
+    destiny: computed(() => get(operationCommands.destiny)),
+    hospital: computed(() => get(operationCommands.hospital)),
+    divination: computed(() => get(operationCommands.divination)),
+    lottery: computed(() => get(operationCommands.lottery)),
+    rollGold: computed(() => get(operationCommands.rollGold)),
+    gamble: computed(() => get(operationCommands.gamble)),
+    gambleRollDice: computed(() => get(operationCommands.gambleRollDice)),
+    bombDice: computed(() => get(operationCommands.bombDice)),
+    nodeTarget: computed(() => get(operationCommands.nodeTarget)),
+    selectRewardCard: computed(() => get(operationCommands.selectRewardCard)),
+  }
+}
+
+export type OperationActions = ReturnType<typeof getOperationActions>

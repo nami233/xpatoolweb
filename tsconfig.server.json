@@ -1,0 +1,38 @@
+// 后端（Node 侧）的 TS 配置。
+//
+// 为什么要单独一份：`node server/index.ts` 直接跑 TS 靠的是 Node 的原生类型剥离，
+// 而类型剥离有两条硬规则，靠这份配置把它们变成**编译期**错误（而不是运行时才发现）：
+//
+//   1. 不改写 import 说明符 —— 相对导入必须自己写全 `.ts` 扩展名。
+//      所以这里用 `nodenext`（不是 `bundler`），TS 会报 TS2835 把漏的扩展名揪出来。
+//   2. strip-only 不支持参数属性 / enum / namespace —— `erasableSyntaxOnly` 直接拒绝。
+//
+// `verbatimModuleSyntax` 强制把纯类型导入写成 `import type`，否则 Node 运行时会去
+// 解析一个只有类型的东西（它在运行时并不存在）。
+{
+  "extends": "@tsconfig/node24/tsconfig.json",
+  "include": [
+    "server/**/*.ts",
+    "shared/**/*.ts",
+    // 后端 rpc.ts 要取错误码文案表，所以留这一条
+    "src/data/**/*.ts"
+  ],
+  // 下面这两个是浏览器侧的传输实现（用 DOM 的 WebSocket / MessageEvent 和 localStorage），
+  // 不属于 Node 项目：后端那一侧对应的是 server/ws/**
+  "exclude": ["src/net/backend.ts", "src/net/backendClient.ts"],
+  "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+
+    // 允许 import 里写 `.ts`（类型剥离要求写全，而 TS 默认禁止）
+    "allowImportingTsExtensions": true,
+    // 只做类型检查，不产文件
+    "noEmit": true,
+
+    // 只允许「能被剥离掉」的 TS 语法：参数属性 / enum / namespace 一律报错
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+
+    "types": ["node"]
+  }
+}
