@@ -258,3 +258,7 @@ game.when('战斗开始', () => {
 `users.json` 里可以手写 `retainMs`（毫秒）覆盖该用户的账号桶保留时长，不加协议、不加 UI。
 
 ---
+
+## 许可证
+
+本项目采用 [GNU General Public License v3.0](file:///e:/dev/JXPD/xpatoolweb/LICENSE)（GPL-3.0）授权，详见 [LICENSE](file:///e:/dev/JXPD/xpatoolweb/LICENSE)。
