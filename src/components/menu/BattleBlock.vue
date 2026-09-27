@@ -35,7 +35,7 @@ const dodgeHint = computed(() => {
   const opponent = myIsDefender ? battleStat.attacker : battleStat.defender
   const required = dodgeRequirement(opponent?.diceValue ?? 0)
   if (required === null) return ''
-  return `对手骰点 ${opponent?.diceValue} → 至少要掷到 ${required} 才能闪避成功（失败则防御归零、吃满伤害）`
+  return `对手骰点 ${opponent?.diceValue} `
 })
 
 const damageEstimate = computed(() => {

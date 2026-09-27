@@ -126,7 +126,7 @@ async function submit(): Promise<void> {
 
       <div v-if="mode === '登录'" class="记住行">
         <input id="记住密码" v-model="rememberPassword" type="checkbox" @change="toggleRemember" />
-        <label for="记住密码">记住密码（下次打开自动填好，明文存在这台浏览器里）</label>
+        <label for="记住密码">记住密码</label>
       </div>
 
       <p v-if="invalidName" class="错误">用户名不超过 32 个字符，且不能有空白字符</p>
@@ -138,11 +138,6 @@ async function submit(): Promise<void> {
       <button class="主" :disabled="!canSubmit || binding" @click="submit">
         {{ binding ? '处理中…' : mode === '登录' ? '登录' : '注册并进入' }}
       </button>
-
-      <p class="灰">后端：{{ backendLinkState }}<template v-if="backendLinkMessage"> · {{ backendLinkMessage }}</template></p>
-      <p class="灰">
-        注册可以关掉（后端设 <code>XPA_ALLOW_REGISTER=0</code>）；关掉后只能用已有账号登录。
-      </p>
     </section>
   </div>
 </template>

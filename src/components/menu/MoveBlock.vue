@@ -58,31 +58,10 @@ function directionText(firstStep: number): string {
       <div class="op-row">
         <span class="op-muted">
           当前地块 {{ battle.currentPosition >= 0 ? nodeLabel(battle.currentPosition) : '—' }} · 来路
-          {{ battle.currentFromNode >= 0 ? nodeLabel(battle.currentFromNode) : '—' }} ·
-          <template v-if="battle.remainingSteps !== undefined">
-            本次移动 {{ battle.diceSteps }} 步（已走 {{ battle.walkedSteps }}，剩
-            {{ battle.remainingSteps }}）·</template
-          >
-          <template v-else>步数未知（还没投骰）·</template>
-          相邻 {{ walkableNodes.length }} 个 · SN: {{ moveAction.Sn }}
-          <template v-if="autoMove.serverDirection > 0">
-            · 服务端预填方向 {{ autoMove.serverDirection }}<template v-if="autoMove.forceDirection">（说方向强制 → 自动走）</template><template
-              v-else
-            >（只是默认值；有多个方向可选时要你自己点）</template>
-          </template>
-          <template v-else-if="autoMove.forceDirection"> · 服务端说这一步方向由你定（来路限制已解除，可以后退），没给方向 → 要你自己点，不自动走</template>
+          {{ battle.currentFromNode >= 0 ? nodeLabel(battle.currentFromNode) : '—' }} ·  
         </span>
       </div>
       <p v-if="autoMove.state" class="op-muted">自动移动：{{ autoMove.state }}</p>
-      <div class="op-row">
-        <span class="op-muted">
-          我的星级 {{ myStarLevel }}★ · 金币 {{ myGold }}<template v-if="starUpPrice !== undefined">
-            · 升 {{ myStarLevel + 1 }}★ 要 {{ starUpPrice }} 金币（在保障点 / 起始点停下才能升）</template><template
-            v-else
-          >
-            · 已满级（{{ maxStarLevel }}★）</template>
-        </span>
-      </div>
       <div class="op-row op-row--pair">
         <MenuButton
           v-for="node in walkableNodes"

@@ -70,14 +70,6 @@ const needBattleResponse = computed(() => battle.battlePendingResponse.length > 
     <section class="待办">
       <div class="待办头">
         <strong>需要你操作</strong>
-        <span class="标" :class="battle.myTurn ? '标--我' : ''">
-          {{ battle.myTurn ? '轮到我' : '响应型' }}
-        </span>
-        <span class="op-muted">行动者：{{ battle.actorNickname }}</span>
-        <span v-if="todoCount > 0" class="op-muted">共 {{ todoCount }} 类可做</span>
-        <span v-if="urgentCount > 0" class="op-warn">
-          有超时的 {{ urgentCount }} 项（不处理会被系统替你选）
-        </span>
       </div>
 
       <div v-if="battle.battleRunning && battleSummary" class="战斗条">
@@ -94,18 +86,6 @@ const needBattleResponse = computed(() => battle.battlePendingResponse.length > 
         </span>
         <span v-if="needBattleResponse" class="op-warn">服务端正在等你响应</span>
       </div>
-
-      <div class="op-row">
-        <span class="op-muted">自动移动：直路自动走，岔路口 / 遭遇才停下问人</span>
-        <span v-if="autoMove.state" class="op-muted">{{ autoMove.state }}</span>
-        <span v-else-if="autoMove.nextNode" class="op-muted">
-          下一格 → {{ autoMove.nextNode.node }}（{{ autoMove.nextNode.origin }}，即将自动走）
-        </span>
-        <span v-else-if="autoMove.needDirection" class="op-warn">
-          要你选方向：服务端没指定下一格，请在下面「方向选择」里点一个
-        </span>
-      </div>
-
       <template v-if="todoCount > 0">
         <DiceBlock v-if="available.rollDice" :session="session" />
         <CardBlock v-if="available.useCard" :session="session" />
@@ -118,12 +98,11 @@ const needBattleResponse = computed(() => battle.battlePendingResponse.length > 
       </template>
       <p v-else class="op-muted 待办空">
         现在没有要你做的操作（{{ battle.actorNickname }} 正在行动）。
-        想提前发某条命令，展开下面的「自定义操作」。
       </p>
     </section>
 
     <details class="自定义">
-      <summary>自定义操作（全部 8 块，拿不到 Sn 的按钮是灰的）</summary>
+      <summary>自定义操作</summary>
       <DiceBlock :session="session" />
       <CardBlock :session="session" />
       <DiscardBlock :session="session" />

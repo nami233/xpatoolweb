@@ -519,9 +519,6 @@ const quickCardRoleCandidates = computed(() => computeRoleCandidates(CardTarget(
           :extraReason="fieldCardAction === undefined ? '服务端没给场外动作' : skillUnavailable"
         />
         <span v-if="skillCdHint" class="op-warn">{{ skillCdHint }}</span>
-        <span class="op-muted">
-          发的是 5055 + `UseSkill` + `SkillId={{ skillToUse || '?' }}`（少了 SkillId 会被拒 ERR=10013）
-        </span>
       </div>
       <div class="op-row">
         <label class="op-label">技能目标</label>
@@ -531,23 +528,12 @@ const quickCardRoleCandidates = computed(() => computeRoleCandidates(CardTarget(
             {{ item.name }} #{{ item.id }}{{ item.distance === '—' ? '' : `（距 ${item.distance} 格）` }}
           </option>
         </select>
-        <span v-if="skillSemantic" class="op-muted">
-          这个技能**要选目标**：{{ skillSemantic.detail }}{{ skillRangeText }}。候选是全量玩家 + 怪物
-          （本地不筛，射程/阵营交给服务端判），选中后多发一个 `TargetIds=[id]`。
-        </span>
-        <span v-else class="op-muted">
-          本地没记这个技能的目标语义（`技能目标表` 里只有 18 个要选目标的技能），一般不用填；
-          真要填就从候选中挑，发出去就是目标的 `Player.Id`。
-        </span>
         <span v-if="skillTargetCandidates.length === 0" class="op-warn">
           没有可选目标（房间数据里还没有玩家/怪物？）
         </span>
       </div>
       <div class="op-row">
         <label class="op-label">冷却信息</label>
-        <span v-if="skillCooldownRow.length === 0" class="op-muted">
-          英雄数据里没拿到 SkillCds，现在按手填的 id 发（状态交给服务端判）
-        </span>
         <span
           v-for="skill in skillCooldownRow"
           :key="skill.Id"
@@ -558,7 +544,6 @@ const quickCardRoleCandidates = computed(() => computeRoleCandidates(CardTarget(
           {{ skill.name }} {{ skill.cooldown > 0 ? `剩 ${skill.cooldown} 回合` : '可用' }}
         </span>
       </div>
-      <p class="op-muted">每回合只能出 1 张效果牌，技能与出牌共用这一条。</p>
     </template>
   </div>
 

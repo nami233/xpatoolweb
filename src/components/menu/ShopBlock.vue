@@ -157,7 +157,7 @@ const transferTarget = ref('')
   <div class="op-subblock">
     <div class="op-sub">筹码商店</div>
     <p v-if="!chipShopAction" class="op-muted">
-      筹码商店没开（服务端没给这个动作）。购买 = 花金币进店（第一次 10，之后 15/20/25）
+      筹码商店没开
     </p>
     <template v-else>
       <span class="op-muted">筹码商店 SN: {{ chipShopAction.Sn }}</span>

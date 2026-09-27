@@ -121,11 +121,6 @@ function formatTime(time: number): string {
         </button>
         <button @click="session.disconnect()">断开本地连接</button>
       </div>
-      <p class="提示">
-        目标地址 / 版本这些配置现在只在源码里改（<code>src/config.ts</code>）；
-        「拉取服务器地址」会把接口返回的地址打到下面的日志里，不一致就照它改源码。
-        「断开本地连接」只清这一端的显示 —— 服务端那个槽位会话照旧跑着（要真删就用主页的「移除」）。
-      </p>
     </section>
 
     <section class="块">
@@ -140,10 +135,6 @@ function formatTime(time: number): string {
         <input v-model="backendToken" class="命令框" placeholder="令牌（本机开发留空）" />
         <button @click="onReconnectBackend">重连后端</button>
       </div>
-      <p class="提示">
-        地址 / 令牌存在本机（localStorage 的 <code>xpatoolweb.后端</code>）；改完点「重连后端」
-        所有账号都会重挂到新后端上。令牌是后端 <code>XPA_TOKEN</code> 的部署级门禁，后端没配就留空。
-      </p>
     </section>
 
     <section class="块">
